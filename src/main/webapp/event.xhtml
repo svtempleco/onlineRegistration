@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Sri Venkateswara Swamy Temple Of Colorado-Add Temple Service</title>
+</h:head>
+
+<h:body style="font-size: 12px;">
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+			<center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west">
+			<ui:include src="menu.xhtml"/>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<h:form id="eventForm" style="font-size: 12px; width: 50%">
+				<p:panel id="panel" header="Add A New Temple Service" style="font-size: 12px;">
+					<p:messages autoUpdate="true"/>
+					<h:panelGrid id="grid" columns="3" cellpadding="5" style="font-size: 12px;">
+						<p:outputLabel value="Name (Required)" style="font-weight:bold"/>
+						<p:inputText id="name" placeholder="Service Name" value="#{eventBean.event.eventDescription}" label="Name"/>
+						<p:message for="name" />
+
+						<p:outputLabel value="Location (Required)" style="font-weight:bold"/>
+						<p:selectOneRadio id="location" value="#{eventBean.event.venue}" label="Location">
+							<f:selectItem itemLabel="Home" itemValue="Home" />
+							<f:selectItem itemLabel="Temple" itemValue="Temple" />
+						</p:selectOneRadio>
+						<p:message for="location" />
+
+						<p:outputLabel value="Category (Required)" style="font-weight:bold"/>
+						<p:selectOneRadio id="category" value="#{eventBean.event.incomeCategory}" label="Category">
+							<f:selectItem itemLabel="Scheduled" itemValue="Scheduled" />
+							<f:selectItem itemLabel="Special" itemValue="Special" />
+							<f:selectItem itemLabel="Personal" itemValue="Personal" />
+						</p:selectOneRadio>
+						<p:message for="category" />
+
+						<p:outputLabel value="Date" style="font-weight:bold"/>
+						<p:calendar id="eventDate" value="#{eventBean.event.eventDate}" pattern="MM/dd/yyyy"/>
+						<p:message for="eventDate" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" cellpadding="5" style="font-size: 12px;">
+						<p:commandButton value="Save" actionListener="#{eventBean.addEvent}"/>
+						<p:commandButton value="Cancel" actionListener="#{eventBean.cancel}"/>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

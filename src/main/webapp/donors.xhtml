@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Sri Venkateswara Swamy Temple Of Colorado-Temple Services</title>
+</h:head>
+
+<h:body style="font-size: 12px;">
+    <br></br>
+    <p:layout fullPage="true">
+    <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+        <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+    </p:layoutUnit>
+
+    <p:layoutUnit position="west">
+        <ui:include src="menu.xhtml"/>
+    </p:layoutUnit>
+
+    <p:layoutUnit position="center">
+
+        <h:form style="font-size: 12px;">
+            <div class="ui-fluid">
+                <p:panel header="All Users">
+                    <center>
+                    <h:commandLink>
+                        <b style="font-size: 18px;">Export To Excel</b>
+                        <p:dataExporter type="xls" target="users" fileName="cars" pageOnly="true"/>
+                    </h:commandLink>
+                    &nbsp;&nbsp;&nbsp;
+                    <h:commandLink>
+                        <b style="font-size: 18px;">Export To PDF</b>
+                        <p:dataExporter type="pdf" target="users" fileName="cars" pageOnly="true" />
+                    </h:commandLink>
+                    </center>
+                    <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:dataTable id="users"
+                                     var="user"
+                                     style="margin-bottom:0; font-size: 12px;"
+                                     value="#{parakamaniBean.users}"
+                                     rows="10"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     filteredValue="#{parakamaniBean.filteredUsers}"
+                                     rowsPerPageTemplate="25,100,500">
+
+                            <p:column headerText="Name" filterBy="#{user.firstName}&nbsp;#{user.middleName}&nbsp;#{user.lastName}" filterMatchMode="contains" sortBy="#{user.firstName}&nbsp;#{user.middleName}&nbsp;#{user.lastName}">
+                                <h:outputText value="#{user.firstName}&nbsp;#{user.middleName}&nbsp;#{user.lastName}" />
+                            </p:column>
+
+                            <p:column headerText="Email" filterBy="#{user.email}" filterMatchMode="contains" sortBy="#{user.email}">
+                                <h:outputText value="#{user.email}" />
+                            </p:column>
+
+                            <p:column headerText="Phone" filterBy="#{user.phone}" filterMatchMode="contains" sortBy="#{user.phone}">
+                                <h:outputText value="#{user.phone}"/>
+                            </p:column>
+
+                            <p:column headerText="Address" filterBy="#{user.address1}&nbsp;#{user.address2}&nbsp;#{user.city}&nbsp;#{user.zip}&nbsp;#{user.zip4}&nbsp;#{user.state}" filterMatchMode="contains" sortBy="#{user.address1}&nbsp;#{user.address2}&nbsp;#{user.city}&nbsp;#{user.zip}&nbsp;#{user.zip4}&nbsp;#{user.state}">
+                                <h:outputText value="#{user.address1}&nbsp;#{user.address2}&nbsp;#{user.city}&nbsp;#{user.zip}&nbsp;#{user.zip4}&nbsp;#{user.state}"/>
+                            </p:column>
+
+                            <p:column headerText="Current" filterBy="#{user.currentActiveMember}" filterMatchMode="contains" sortBy="#{user.currentActiveMember}">
+                                <h:outputText value="#{user.currentActiveMember}" />
+                            </p:column>
+
+                            <p:column headerText="Data Complete" filterBy="#{user.dataComplete}" filterMatchMode="contains" sortBy="#{user.dataComplete}">
+                                <h:outputText value="#{user.dataComplete}" />
+                            </p:column>
+
+                            <!--
+                            <p:column headerText="Order" filterBy="#{user.eventSponsorOrder}" filterMatchMode="contains" sortBy="#{user.eventSponsorOrder}">
+                                <h:outputText value="#{user.eventSponsorOrder}" />
+                            </p:column>
+                            -->
+
+                            <p:column headerText="Founding Member" filterBy="#{user.foundingMember}" filterMatchMode="contains" sortBy="#{user.foundingMember}">
+                                <h:outputText value="#{user.foundingMember}" />
+                            </p:column>
+
+                            <p:column headerText="Pledge Form Date" filterBy="#{user.pledgeFormDate}" filterMatchMode="contains" sortBy="#{user.pledgeFormDate}">
+                                <h:outputText value="#{user.pledgeFormDate}">
+                                    <f:convertDateTime pattern="MM/dd/YYYY" type="date" timeZone="US/Mountain"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Gothram" filterBy="#{user.gothram}" filterMatchMode="contains" sortBy="#{user.gothram}">
+                                <h:outputText value="#{user.gothram}" />
+                            </p:column>
+
+                            <p:column headerText="Nakshathram" filterBy="#{user.nakshathram}" filterMatchMode="contains" sortBy="#{user.nakshathram}">
+                                <h:outputText value="#{user.nakshathram}" />
+                            </p:column>
+
+                            <p:column headerText="Pledge Amount" filterBy="#{user.pledgeAmount}" filterMatchMode="contains" sortBy="#{user.pledgeAmount}">
+                                <h:outputText value="#{user.pledgeAmount}">
+                                    <f:convertNumber type="currency" />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panelGrid>
+                </p:panel>
+            </div>
+        </h:form>
+    </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>

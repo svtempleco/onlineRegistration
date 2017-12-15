@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Sri Venkateswara Swamy Temple Of Colorado-Temple Services</title>
+    </h:head>
+
+    <h:body style="font-size: 12px;">
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+                <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west">
+                <ui:include src="menu.xhtml"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <h:form style="font-size: 12px;">
+                    <div class="ui-fluid">
+                        <p:panel header="All Temple Services">
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:dataTable id="events"
+                                             var="event"
+                                             rowKey="#{event.eventId}"
+                                             selection="#{eventBean.selectedEvent}"
+                                             selectionMode="single"
+                                             style="margin-bottom:0; font-size: 12px;"
+                                             value="#{eventBean.events}"
+                                             reflow="true"
+                                             rows="10"
+                                             paginator="true"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             filteredValue="#{eventBean.filteredEvents}"
+                                             rowsPerPageTemplate="25,100,500">
+                                    <p:column headerText="Name" filterBy="#{event.name}" filterMatchMode="contains" sortBy="#{event.name}">
+                                        <h:outputText value="#{event.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Location" filterBy="#{event.location}" filterMatchMode="contains" sortBy="#{event.location}">
+                                        <h:outputText value="#{event.location}" />
+                                    </p:column>
+
+                                    <p:column headerText="Schedule" filterBy="#{event.schedule}" filterMatchMode="contains" sortBy="#{event.schedule}">
+                                        <h:outputText value="#{event.schedule}" />
+                                    </p:column>
+
+                                    <p:column headerText="Date of Service" filterBy="#{event.dateOfService}" filterMatchMode="contains" sortBy="#{event.dateOfService}">
+                                        <h:outputText value="#{event.dateOfService}">
+                                            <f:convertDateTime pattern="MM/dd/YYYY" type="date" timeZone="US/Mountain"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Time of Service" filterBy="#{event.timeOfService}" filterMatchMode="contains" sortBy="#{event.timeOfService}">
+                                        <h:outputText value="#{event.timeOfService}">
+                                            <f:convertDateTime pattern="HH:mm" type="time" timeZone="US/Mountain"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Price" filterBy="#{event.price}" filterMatchMode="contains" sortBy="#{event.price}">
+                                        <h:outputText value="#{event.price}">
+                                            <f:convertNumber type="currency" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Description" filterBy="#{event.description}" filterMatchMode="contains" sortBy="#{event.description}">
+                                        <h:outputText value="#{event.description}" />
+                                    </p:column>
+
+                                    <!--
+                                    <p:column headerText="Created Date" filterBy="#{event.createdDate}" filterMatchMode="contains" sortBy="#{event.createdDate}" priority="7">
+                                        <h:outputText value="#{event.createdDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Created User" filterBy="#{event.createdUser}" filterMatchMode="contains" sortBy="#{event.createdUser}" priority="8">
+                                        <h:outputText value="#{event.createdUser}" />
+                                    </p:column>
+
+                                    <p:column headerText="Updated Date" filterBy="#{event.updatedDate}" filterMatchMode="contains" sortBy="#{event.updatedDate}" priority="9">
+                                        <h:outputText value="#{event.updatedDate}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Updated User" filterBy="#{event.updatedUser}" filterMatchMode="contains" sortBy="#{event.updatedUser}" priority="10">
+                                        <h:outputText value="#{event.updatedUser}" />
+                                    </p:column>
+                                    -->
+                                </p:dataTable>
+                            </p:panelGrid>
+                            <p:contextMenu for="events">
+                                <p:menuitem value="View" update="eventDetail" icon="ui-icon-search" oncomplete="PF('eventDialog').show()"/>
+                                <p:menuitem value="Edit" update="eventDetail" icon="ui-icon-search" oncomplete="PF('eventDialog').show()"/>
+                                <p:menuitem value="Delete" update="events" icon="ui-icon-close" actionListener="#{eventBean.deleteEvent}"/>
+                            </p:contextMenu>
+
+                            <p:dialog header="Event Info" widgetVar="eventDialog" style="width: 50%" appendToBody="true" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+                                <p:outputPanel id="eventDetail">
+
+                                    <p:panelGrid  columns="2" rendered="#{not empty eventBean.selectedEvent}" columnClasses="label,value">
+
+                                        <h:outputText value="Name" />
+                                        <h:inputText value="#{eventBean.selectedEvent.name}" />
+
+                                        <h:outputText value="Location:" />
+                                        <h:inputText value="#{eventBean.selectedEvent.location}"/>
+
+                                        <h:outputText value="Schedule:" />
+                                        <h:inputText value="#{eventBean.selectedEvent.schedule}"/>
+
+                                        <h:outputText value="Date of Service:" />
+                                        <h:inputText value="#{eventBean.selectedEvent.dateOfService}">
+                                            <f:convertDateTime pattern = "MM/dd/yyyy" timeZone="US/Mountain"/>
+                                        </h:inputText>
+
+                                        <h:outputText value="Time of Service:" />
+                                        <h:inputText value="#{eventBean.selectedEvent.timeOfService}">
+                                            <f:convertDateTime pattern = "HH:mm" timeZone="US/Mountain"/>
+                                        </h:inputText>
+
+                                        <h:outputText value="Description:" />
+                                        <h:inputText value="#{eventBean.selectedEvent.description}"/>
+
+                                        <h:outputText value="Price" />
+                                        <h:inputText value="$#{eventBean.selectedEvent.price}" />
+
+                                        <p:commandButton id="commandButton1" value="Save" actionListener="#{eventBean.updateEvent}" oncomplete="PF('eventDialog').hide()"/>
+                                        <p:commandButton value="Cancel" actionListener="#{eventBean.cancel()}"/>
+
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+                        </p:panel>
+                    </div>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

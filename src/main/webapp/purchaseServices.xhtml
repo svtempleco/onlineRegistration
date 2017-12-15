@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Sri Venkateswara Swamy Temple Of Colorado-Add Temple Service</title>
+    </h:head>
+
+    <h:body style="font-size: 11px;">
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+                <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west">
+                <ui:include src="menu.xhtml"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <h:form id="serviceRegistrationForm" style="font-size: 12px;">
+                    <p:messages autoUpdate="true"/>
+                    <div class="ui-fluid">
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank" style="font-size: 12px;">
+                            <p:panel header="Selecet Services (Required)" style="font-size: 12px;">
+                                <p:dataTable var="event"
+                                             value="#{userBean.events}"
+                                             rowKey="#{event.eventId}"
+                                             rows="15"
+                                             paginator="true"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             filteredValue="#{userBean.filteredEvents}"
+                                             rowsPerPageTemplate="15,50,200,500"
+                                             style="margin-bottom:0; font-size: 12px;">
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:column headerText="ID" filterBy="#{event.eventId}" filterMatchMode="contains" sortBy="#{event.eventId}" >
+                                        <h:outputText value="#{event.eventId}"/>
+                                    </p:column>
+                                    <p:column headerText="Description" filterBy="#{event.eventDescription}" filterMatchMode="contains" sortBy="#{event.eventDescription}" >
+                                        <h:outputText value="#{event.eventDescription}"/>
+                                    </p:column>
+                                    <p:column headerText="Venue" filterBy="#{event.venue}" filterMatchMode="contains" sortBy="#{event.venue}" >
+                                        <h:outputText value="#{event.venue}"/>
+                                    </p:column>
+                                    <p:column headerText="Date" filterBy="#{event.eventDate}" filterMatchMode="contains" sortBy="#{event.eventDate}" >
+                                        <h:outputText value="#{event.eventDate}">
+                                            <f:convertDateTime pattern="MM/dd/YYYY" type="date" timeZone="US/Mountain"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Deduct From Event" filterBy="#{event.deductFromEvent}" filterMatchMode="contains" sortBy="#{event.deductFromEvent}" >
+                                        <h:outputText value="#{event.deductFromEvent}"/>
+                                    </p:column>
+                                    <p:column headerText="Income Category" filterBy="#{event.incomeCategory}" filterMatchMode="contains" sortBy="#{event.incomeCategory}" >
+                                        <h:outputText value="#{event.incomeCategory}"/>
+                                    </p:column>
+                                    <p:column headerText="Income Sub Category" filterBy="#{event.incomeSubCategory}" filterMatchMode="contains" sortBy="#{event.incomeSubCategory}" >
+                                        <h:outputText value="#{event.incomeSubCategory}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:panelGrid>
+                        <br></br>
+                        <p:panelGrid columns="2" columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank" style="font-size: 12px;">
+                            <p:panel header="Additional Notes">
+                                <h:panelGrid columns="2" cellpadding="2" style="font-size: 12px;">
+                                    <p:inputTextarea id="additionalNotes" maxlength="500" cols="40" rows="10" placeholder="Any Notes" value="#{userBean.additionalNotes}" label="Additional Notes"/>
+                                    <p:message for="additionalNotes" />
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:panel header="Date and Time are required for custom scheduled services">
+                                <h:panelGrid columns="2" cellpadding="2" style="font-size: 12px;">
+                                    <p:calendar id="dateAndTime" value="#{userBean.dateAndTime}" pattern="MM/dd/yyyy HH:mm:ss" />
+                                    <p:message for="dateAndTime" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:panelGrid>
+
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <label style="font-size: 20px; font-weight: bold;">Please wait</label>
+                        </p:dialog>
+
+                        <br></br>
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" style="font-size: 12px;">
+                            <p:commandButton value="Next" actionListener="#{userBean.purchaseServices()}"/>
+                            <p:commandButton action="#{userBean.cancel()}" value="Cancel" />
+                        </p:panelGrid>
+                    </div>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

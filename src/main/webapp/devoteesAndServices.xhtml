@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Sri Venkateswara Swamy Temple Of Colorado-Temple Services</title>
+</h:head>
+<h:body style="font-size: 12px;">
+
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+            <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="west">
+            <ui:include src="menu.xhtml"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <h:form>
+                <p:panel header="All Devotees and Services" style="font-size: 12px;">
+                    <h3>Export Data</h3>
+
+                    <h:commandLink>
+                        <h:outputText name="Export to Excel" style="font-weight: bold; color: brown"/>
+                        <p:dataExporter type="xls" target="userEvents" fileName="devoteeServices"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <h:outputText name="Export to PDF" style="font-weight: bold; color: brown"/>
+                        <p:dataExporter type="pdf" target="userEvents" fileName="devoteeServices"/>
+                    </h:commandLink>
+                    <p:dataTable id="userEvents"
+                                 var="userEvent"
+                                 style="font-size: 12px;"
+                                 value="#{userBean.userEvents}"
+                                 reflow="true"
+                                 rows="25"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 filteredValue="#{eventBean.filteredEvents}"
+                                 rowsPerPageTemplate="25,100,500">
+
+                        <p:column headerText="Devotee Name" filterBy="#{userEvent.user.firstName} #{userEvent.user.lastName}" filterMatchMode="contains" sortBy="#{userEvent.user.firstName} #{userEvent.user.lastName}">
+                            <h:outputText value="#{userEvent.user.firstName} #{userEvent.user.lastName}" />
+                        </p:column>
+
+                        <p:column headerText="Email" filterBy="#{userEvent.user.email}" filterMatchMode="contains" sortBy="#{userEvent.user.email}">
+                            <h:outputText value="#{userEvent.user.email}" />
+                        </p:column>
+
+                        <p:column headerText="Family Gothram" filterBy="#{userEvent.user.familyGothram}" filterMatchMode="contains" sortBy="#{userEvent.user.familyGothram}">
+                            <h:outputText value="#{userEvent.user.familyGothram}" />
+                        </p:column>
+
+                        <p:column headerText="Phone Number" filterBy="#{userEvent.user.phoneNumber}" filterMatchMode="contains" sortBy="#{userEvent.user.phoneNumber}">
+                            <h:outputText value="#{userEvent.user.phoneNumber}" />
+                        </p:column>
+
+                        <p:column headerText="Primary Nakshathram" filterBy="#{userEvent.user.primaryNakshathram}" filterMatchMode="contains" sortBy="#{userEvent.user.primaryNakshathram}">
+                            <h:outputText value="#{userEvent.user.primaryNakshathram}" />
+                        </p:column>
+
+                        <p:column headerText="Spouse Name" filterBy="#{userEvent.user.spouseName}" filterMatchMode="contains" sortBy="#{userEvent.user.spouseName}">
+                            <h:outputText value="#{userEvent.user.spouseName}" />
+                        </p:column>
+
+                        <p:column headerText="Spouse Nakshathram" filterBy="#{userEvent.user.spouseNakshathram}" filterMatchMode="contains" sortBy="#{userEvent.user.spouseNakshathram}">
+                            <h:outputText value="#{userEvent.user.spouseNakshathram}" />
+                        </p:column>
+
+                        <p:column headerText="Name" filterBy="#{userEvent.event.name}" filterMatchMode="contains" sortBy="#{userEvent.event.name}">
+                            <h:outputText value="#{userEvent.event.name}" />
+                        </p:column>
+
+                        <p:column headerText="Location" filterBy="#{userEvent.event.location}" filterMatchMode="contains" sortBy="#{userEvent.event.location}">
+                            <h:outputText value="#{userEvent.event.location}" />
+                        </p:column>
+
+                        <p:column headerText="Schedule" filterBy="#{userEvent.event.schedule}" filterMatchMode="contains" sortBy="#{userEvent.event.schedule}">
+                            <h:outputText value="#{userEvent.event.schedule}" />
+                        </p:column>
+
+                        <p:column headerText="Price" filterBy="#{userEvent.event.price}" filterMatchMode="contains" sortBy="#{userEvent.event.price}">
+                            <h:outputText value="#{userEvent.event.price}" >
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Status" filterBy="#{userEvent.status}" filterMatchMode="contains" sortBy="#{userEvent.status}">
+                            <h:outputText value="#{userEvent.status}" />
+                        </p:column>
+
+                        <p:column headerText="Notes" filterBy="#{userEvent.notes}" filterMatchMode="contains" sortBy="#{userEvent.notes}">
+                            <h:outputText value="#{userEvent.notes}" />
+                        </p:column>
+
+                        <p:column headerText="Date and Time" filterBy="#{userEvent.dateAndTime}" filterMatchMode="contains" sortBy="#{userEvent.dateAndTime}">
+                            <h:outputText value="#{userEvent.dateAndTime}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </p:layout>
+
+</h:body>
+</html>

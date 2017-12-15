@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Sri Venkateswara Swamy Temple Of Colorado-Temple Services</title>
+</h:head>
+
+<h:body style="font-size: 12px;">
+    <br></br>
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+            <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="west">
+            <ui:include src="menu.xhtml"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+
+            <h:form style="font-size: 12px;">
+                <div class="ui-fluid">
+                    <p:panel header="All Annual Memberships">
+                        <center>
+                            <h:commandLink>
+                                <b style="font-size: 18px;">Export To Excel</b>
+                                <p:dataExporter type="xls" target="annualMemberships" fileName="annualMemberships" pageOnly="true"/>
+                            </h:commandLink>
+                            &nbsp;&nbsp;&nbsp;
+                            <h:commandLink>
+                                <b style="font-size: 18px;">Export To PDF</b>
+                                <p:dataExporter type="pdf" target="annualMemberships" fileName="annualMemberships" pageOnly="true" />
+                            </h:commandLink>
+                        </center>
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                            <p:dataTable id="annualMemberships"
+                                         var="annualMembership"
+                                         style="margin-bottom:0; font-size: 12px;"
+                                         value="#{parakamaniBean.annualMemberships}"
+                                         rows="10"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         filteredValue="#{parakamaniBean.filteredUsers}"
+                                         rowsPerPageTemplate="25,100,500">
+
+                                <p:column headerText="User" filterBy="#{annualMembership.userId}" filterMatchMode="contains" sortBy="#{annualMembership.userId}">
+                                    <h:outputText value="#{annualMembership.userId}" />
+                                </p:column>
+
+                                <p:column headerText="User" filterBy="#{annualMembership.user.firstName}" filterMatchMode="contains" sortBy="#{annualMembership.user.firstName}">
+                                    <h:outputText value="#{annualMembership.user.firstName}" />
+                                </p:column>
+
+                                <p:column headerText="Last Name" filterBy="#{annualMembership.user.lastName}" filterMatchMode="contains" sortBy="#{annualMembership.user.lastName}">
+                                    <h:outputText value="#{annualMembership.user.lastName}" />
+                                </p:column>
+
+                                <p:column headerText="Active Member" filterBy="#{annualMembership.user.currentActiveMember}" filterMatchMode="contains" sortBy="#{annualMembership.user.currentActiveMember}">
+                                    <h:outputText value="#{annualMembership.user.currentActiveMember}" />
+                                </p:column>
+
+                                <p:column headerText="Email" filterBy="#{annualMembership.user.email}" filterMatchMode="contains" sortBy="#{annualMembership.user.email}">
+                                    <h:outputText value="#{annualMembership.user.email}" />
+                                </p:column>
+
+                                <p:column headerText="Start Date" filterBy="#{annualMembership.startDate}" filterMatchMode="contains" sortBy="#{annualMembership.startDate}">
+                                    <h:outputText value="#{annualMembership.startDate}">
+                                        <f:convertDateTime pattern="MM/dd/YYYY" type="date" timeZone="US/Mountain"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="End Date" filterBy="#{annualMembership.endDate}" filterMatchMode="contains" sortBy="#{annualMembership.endDate}">
+                                    <h:outputText value="#{annualMembership.endDate}">
+                                        <f:convertDateTime pattern="MM/dd/YYYY" type="date" timeZone="US/Mountain"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Amount" filterBy="#{annualMembership.amount}" filterMatchMode="contains" sortBy="#{annualMembership.amount}">
+                                    <h:outputText value="#{annualMembership.amount}" />
+                                </p:column>
+
+                                <p:column headerText="Amount Left" filterBy="#{annualMembership.amountLeft}" filterMatchMode="contains" sortBy="#{annualMembership.amountLeft}">
+                                    <h:outputText value="#{annualMembership.amountLeft}" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </p:panel>
+                </div>
+            </h:form>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>

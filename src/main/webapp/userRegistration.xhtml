@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Sri Venkateswara Swamy Temple Of Colorado-Add Temple Service</title>
+</h:head>
+
+<h:body style="font-size: 12px;">
+
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+            <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="west">
+            <ui:include src="menu.xhtml"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <h:form id="serviceRegistrationForm" style="font-size: 12px;">
+                <p:messages autoUpdate="true"/>
+                <div class="ui-fluid">
+                    <p:panel header="Please register/update" style="font-size: 12px;">
+                        <p:panelGrid columns="2" columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank" style="font-size: 12px;">
+                            <p:panel header="Your Details" style="font-size: 12px;">
+                                <h:panelGrid columns="6" cellpadding="2" style="font-size: 12px;">
+                                    <p:outputLabel value="First Name (Required)"/>
+                                    <p:inputText id="firstName" size="20" maxlength="30"  placeholder="First Name" value="#{userBean.user.firstName}" label="First Name"/>
+                                    <p:message for="firstName" />
+
+                                    <p:outputLabel value="Last Name (Required)"/>
+                                    <p:inputText id="lastName" size="20" maxlength="30"  placeholder="Last Name" value="#{userBean.user.lastName}" label="Last Name"/>
+                                    <p:message for="lastName" />
+
+                                    <p:outputLabel value="EMail (Required)"/>
+                                    <p:inputText id="email" size="20" maxlength="30" placeholder="EMail" value="#{userBean.user.email}" label="EMail"/>
+                                    <p:message for="email" />
+
+                                    <p:outputLabel value="Phone Number (Required)"/>
+                                    <p:inputText id="phoneNumber" size="20" maxlength="10"  placeholder="Phone Number" value="#{userBean.user.phone}" label="Phone Number"/>
+                                    <p:message for="phoneNumber" />
+
+                                    <p:outputLabel value="Password (Required)"/>
+                                    <p:password id="password" size="20" maxlength="20"  placeholder="Password" value="#{userBean.user.password}" label="Password"/>
+                                    <p:message for="password"/>
+
+                                    <p:outputLabel value="Re-Enter Password (Required)"/>
+                                    <p:password id="rePassword" size="20" maxlength="20"  placeholder="Re-enter Password" value="#{userBean.user.rePassword}" label="Re-Enter Password"/>
+                                    <p:message for="rePassword"/>
+
+                                    <p:outputLabel value="Street Address (Required)"/>
+                                    <p:inputText id="streetAddress" size="20" maxlength="30"  placeholder="Street Address" value="#{userBean.user.address1}" label="Street Address"/>
+                                    <p:message for="streetAddress" />
+
+                                    <p:outputLabel value="City (Required)"/>
+                                    <p:inputText id="city" size="20" maxlength="30"  placeholder="City" value="#{userBean.user.city}" label="City"/>
+                                    <p:message for="city" />
+
+                                    <p:outputLabel value="State (Required)"/>
+                                    <p:inputText id="state" size="20" maxlength="30"  placeholder="State" value="#{userBean.user.state}" label="State"/>
+                                    <p:message for="state" />
+
+                                    <p:outputLabel value="Zip (Required)"/>
+                                    <p:inputText id="zip" size="20" maxlength="5"  placeholder="Zip" value="#{userBean.user.zip}" label="Zip"/>
+                                    <p:message for="zip" />
+
+                                    <p:outputLabel value="Family Gothram"/>
+                                    <p:inputText id="familyGothram" size="20" maxlength="30"  placeholder="Family Gothram" value="#{userBean.user.gothram}" label="Family Gothram"/>
+                                    <p:message for="familyGothram" />
+
+                                    <p:outputLabel value="Nakshathram"/>
+                                    <p:inputText id="primaryNakshathram" size="20" maxlength="30"  placeholder="Your Nakshathram" value="#{userBean.user.nakshathram}" label="Your Nakshathram"/>
+                                    <p:message for="primaryNakshathram" />
+
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:panel header="Family Details" style="font-size: 12px;">
+                                <h:panelGrid columns="6" cellpadding="2" style="font-size: 12px;">
+
+
+                                </h:panelGrid>
+                            </p:panel>
+
+                        </p:panelGrid>
+                        <br></br>
+
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <label style="font-size: 20px; font-weight: bold;">Please wait</label>
+                        </p:dialog>
+                        <br></br>
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" style="font-size: 12px;">
+                            <p:commandButton value="Save" actionListener="#{userBean.registerOrUpdateUser()}"/>
+                            <p:commandButton action="#{userBean.cancel()}" value="Cancel" />
+                        </p:panelGrid>
+                    </p:panel>
+                </div>
+            </h:form>
+        </p:layoutUnit>
+    </p:layout>
+
+</h:body>
+
+</html>

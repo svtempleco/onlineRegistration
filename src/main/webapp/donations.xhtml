@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Sri Venkateswara Swamy Temple Of Colorado-Temple Services</title>
+</h:head>
+<h:body style="font-size: 12px;">
+
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" size="100" minSize="40" maxSize="200">
+            <center><h1 style="color: #800000">SRI VENKATESWARA SWAMY TEMPLE OF COLORADO</h1></center>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="west">
+            <ui:include src="menu.xhtml"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center">
+            <h:form>
+                <p:panel header="My Donations" style="font-size: 12px;">
+                    <p:dataTable id="donations"
+                                 var="donation"
+                                 style="font-size: 12px;"
+                                 value="#{userBean.donations}"
+                                 reflow="true"
+                                 rows="25"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                 filteredValue="#{eventBean.filteredEvents}"
+                                 rowsPerPageTemplate="25,100,500">
+
+                        <f:facet name="{Exporters}">
+                            <h:commandLink>
+                                <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                <p:dataExporter type="xls" target="tbl" fileName="donations" />
+                            </h:commandLink>
+
+                            <h:commandLink>
+                                <p:graphicImage name="/demo/images/pdf.png" width="24"/>
+                                <p:dataExporter type="pdf" target="tbl" fileName="donations"/>
+                            </h:commandLink>
+
+                            <h:commandLink>
+                                <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                                <p:dataExporter type="csv" target="tbl" fileName="donations" />
+                            </h:commandLink>
+
+                            <h:commandLink>
+                                <p:graphicImage name="/demo/images/xml.png" width="24"/>
+                                <p:dataExporter type="xml" target="tbl" fileName="donations" />
+                            </h:commandLink>
+                        </f:facet>
+
+                        <p:column headerText="Name" filterBy="#{donation.event.eventDescription}" filterMatchMode="contains" sortBy="#{donation.event.eventDescription}">
+                            <h:outputText value="#{donation.event.eventDescription}" />
+                        </p:column>
+
+                        <p:column headerText="Location" filterBy="#{donation.event.venue}" filterMatchMode="contains" sortBy="#{donation.event.venue}">
+                            <h:outputText value="#{donation.event.venue}" />
+                        </p:column>
+
+                        <p:column headerText="Schedule" filterBy="#{donation.event.eventDate}" filterMatchMode="contains" sortBy="#{donation.event.eventDate}">
+                            <h:outputText value="#{donation.event.eventDate}" />
+                        </p:column>
+
+                        <p:column headerText="Price" filterBy="#{donation.amount}" filterMatchMode="contains" sortBy="#{donation.amount}">
+                            <h:outputText value="#{donation.amount}" >
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Check Num" filterBy="#{donation.checkNum}" filterMatchMode="contains" sortBy="#{donation.checkNum}">
+                            <h:outputText value="#{donation.checkNum}" />
+                        </p:column>
+
+                        <p:column headerText="CC Number" filterBy="#{donation.ccNumber}" filterMatchMode="contains" sortBy="#{donation.ccNumber}">
+                            <h:outputText value="#{donation.ccNumber}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>
