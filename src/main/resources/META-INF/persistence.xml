@@ -16,9 +16,9 @@
 
         <properties>
             <!-- Configuring JDBC properties -->
-            <property name="javax.persistence.jdbc.url" value="" />
-            <property name="javax.persistence.jdbc.user" value="" />
-            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://parakamani.db.2655960.hostedresource.com:3306/parakamani" />
+            <property name="javax.persistence.jdbc.user" value="parakamani" />
+            <property name="javax.persistence.jdbc.password" value="SVTemple@1495" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 
             <!-- Hibernate properties -->
